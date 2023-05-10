@@ -3,7 +3,7 @@
 ## Nahrání nové verze kódu na github
 
 git add .
-git comit -m "Popis aktuálních úprav posílaných do gitu"
+git commit -m "Popis aktuálních úprav posílaných do gitu"
 git push
 
 
