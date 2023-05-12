@@ -9,6 +9,6 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <?php require("./body.php"); echo(createBody()); ?>
+    <?php ?>
   </body>
 </html>
