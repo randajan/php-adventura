@@ -15,6 +15,7 @@ return '
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
+    <h1>'.$title.'</h1>
     '.$body.'
   </body>
 </html>

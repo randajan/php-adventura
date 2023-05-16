@@ -5,9 +5,17 @@ require("../components/page.php");
 
 echo(htmlPage("Administrace", 
     tag("form", ["class"=>"signin"], 
-        tag("input", ["name"=>"username"], "", false, true)
+        tag("h2", "Přihlášení")
+        .tag("input", ["name"=>"username"], "", false)
+        .tag("input", ["name"=>"password"], "", false)
+    )
+    .tag("form", ["class"=>"signup"],
+        tag("h2", "Registrace")
+        .tag("input", ["name"=>"username"], "", false)
+        .tag("input", ["name"=>"password"], "", false)
     )
 
-    
+
+
 
 ));
