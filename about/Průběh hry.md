@@ -31,11 +31,11 @@ zločinec vytrh kabelku z ruky.)  DOSPIS(informace o zločinu), BATOH
 
 2.	Postava se nacházi v temném parku, kde se pravděpodobně stal zločin. Na zemi u lavičky
 najde rozbitý mobil s kapkami krve. Mobil prohlídne, a uloží do batohu. Vedle mobilu
-najde pár kapesníků od krve.
+najde pár kapesníků od krve. Po prozkoumání telefonu, najde SMS zprávu(další nápověda.)
 
-3.	Postava se nachází v opuštěné budově u temného parku, kde se údajně skrýva podezřelá
-osoba. Uvnitř je temno, zaprášeno. Před budovou najde vyšetřovatel černou masku(nápovědea, která se mu prřidá do batohu).
-Po vstoupení do budovy má na výběr jít rovně nebo do temné místnosti nalevo. Před temnou místností nalevo najde kabelku od
+3.	Postava se nachází před opuštěnou budovou u temného parku, kde se údajně skrýva podezřelá
+osoba. Před budovou najde vyšetřovatel černou masku(nápovědea, která se mu prřidá do batohu).
+Uvnitř je temno, zaprášeno. Po vstoupení do budovy má na výběr jít rovně nebo do temné místnosti nalevo. Před temnou místností nalevo najde kabelku od
 krve.(nápověda). Po vstoupení do místnosti vlevo nachází pachatele zločinu a tím hráč hru úspěšně dohrál.
 
 BATOH
