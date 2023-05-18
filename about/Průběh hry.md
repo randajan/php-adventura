@@ -39,7 +39,7 @@ Po vstoupení do budovy má na výběr jít rovně nebo do temné místnosti nal
 krve.(nápověda). Po vstoupení do místnosti vlevo nachází pachatele zločinu a tím hráč hru úspěšně dohrál.
 
 BATOH
-Spis (Informace o zločinu)
+Dopis (Informace o zločinu)
 Kapesník od krve
 Rozbitý mobil
 Maska
