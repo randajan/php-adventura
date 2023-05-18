@@ -1,5 +1,7 @@
 <?php
 
-require("../components/page.php");
+require_once("../components/page.php");
 
-echo(htmlPage("Postavy", "test"));
+echo(htmlPage("Postavy",
+    "characters"
+));

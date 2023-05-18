@@ -1,5 +1,7 @@
 <?php
 
-require("../components/page.php");
+require_once("../components/page.php");
 
-echo(htmlPage("Hra", "test"));
+echo(htmlPage("Hra",
+    "gameContent"
+));

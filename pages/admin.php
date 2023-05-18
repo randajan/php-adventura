@@ -1,21 +1,10 @@
 <?php
 
-require("../tools/tags.php");
-require("../components/page.php");
+require_once("../tools/tags.php");
+require_once("../components/page.php");
+require_once("../components/form.php");
+
 
 echo(htmlPage("Administrace", 
-    tag("form", ["class"=>"signin"], 
-        tag("h2", "Přihlášení")
-        .tag("input", ["name"=>"username"], "", false)
-        .tag("input", ["name"=>"password"], "", false)
-    )
-    .tag("form", ["class"=>"signup"],
-        tag("h2", "Registrace")
-        .tag("input", ["name"=>"username"], "", false)
-        .tag("input", ["name"=>"password"], "", false)
-    )
-
-
-
-
+    "admin"
 ));
