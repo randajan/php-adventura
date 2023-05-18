@@ -11,7 +11,7 @@ $bag = "";
 
 foreach ($state["bag"] as $k=>$v) {
     $bag .= tag("div", ["class"=>"stuff", "id"=>"stuff-$k"],
-        tag("span", ["title"], $v)
+        tag("span", ["class"=>"title"], $v)
     );
 }
 
@@ -19,7 +19,13 @@ echo(htmlPage("Vyšetřovatel",
     tag("div", ["class"=>"board"], 
         tag("div", ["class"=>"block"],
             tag("div", ["class"=>"scene"], $scene)
-            .tag("div", ["class"=>"bag"], $bag, true, true)
+            .tag("div", ["class"=>"bag-pane"],
+                tag("div", ["class"=>"block"], 
+                    tag("div", ["class"=>"bag"], 
+                        $bag
+                    )
+                )
+            )
         )
     )
 ));

@@ -12,7 +12,6 @@ body {
     min-width:50vw;
     max-width:100%;
     width:100vh;
-    border:1px solid black;
 }
 
 .board {
@@ -24,6 +23,22 @@ body {
     text-align:center;
 }
 
+.bag-pane {
+}
+
 .bag {
-    background-color: lightgray;
+    display:flex;
+    justify-content:center;
+}
+
+.bag .stuff {
+    border:1px dashed lightgray;
+    padding:1em;
+    width:10em;
+    height:4em;
+    text-align:center;
+}
+
+.bag .stuff .title {
+    text-align:center;
 }
