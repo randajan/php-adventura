@@ -1,5 +1,8 @@
 # Kancelář vyšetřovatele
 
-Postava se nachází v kanceláři plných polic se spisy a knihami. Vyšetřovateli přijde
-oznámení, že dostal dopis s informacemi o zločinu, který se stal v nedalekém městě.
-Sedí v kanceláři u stolu na kterém leží [dopis](stuff/letter). 
+
+Právě se nacházíš ve své kanceláři plných polic se spisy a knihami.
+Přišel [dopis](stuff/letter) s informacemi o zločinu, který se stal v parku nedalekého města.
+Musíš otevřít dopis a vyšetřit to.
+
+
