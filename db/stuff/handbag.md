@@ -1,3 +1,3 @@
 # Kabelka
 
-Uvnitř kabelky se nachází [svítilna](scene/nalezenipachatele).
+Uvnitř kabelky se nachází [svítilna](?scene=nalezenipachatele).

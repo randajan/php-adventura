@@ -1,11 +1,13 @@
 <?php
 
 session_start();
+//session_unset();
 
 if (!isset($_SESSION["state"])) {
     $_SESSION["state"] = [
         "scene"=>"office",
-        "bag"=>["gun"=>"Pistole"]
+        "focus"=>"",
+        "bag"=>[]
     ];
 }
 
