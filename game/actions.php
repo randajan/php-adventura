@@ -1,6 +1,6 @@
 <?php
 
-require_once("../game/character.php");
+require_once("./game/character.php");
 
 function pushState() {
     global $db;

@@ -1,11 +1,11 @@
 <?php
 
-require_once("../tools/tags.php");
-require_once("../components/page.php");
-require_once("../components/form.php");
+require_once("./tools/tags.php");
+require_once("./tools/page.php");
+require_once("./tools/form.php");
 
-require_once("../db/db.php");
-require_once("../game/user.php");
+require_once("./db/db.php");
+require_once("./game/user.php");
 
 //logout character
 unset($_SESSION["characterId"]);
@@ -48,7 +48,7 @@ $characters = dbGetAll("vstr_characters", "`user`='$userId'");
 $chrs = "";
 foreach ($characters as $character) {
     $chrs .= tag("div", ["class"=>"character"],
-        tag("a", ["href"=>"/www/game.php?selectCharacter=".$character["id"]], $character["name"])
+        tag("a", ["href"=>"/game.php?selectCharacter=".$character["id"]], $character["name"])
     );
 }
 
@@ -63,7 +63,7 @@ echo(htmlPage("Postavy",
                     .tag("div", ["class"=>"msg"], $msg)
                 )
             )
-            .tag("a", ["href"=>"/www/signin.php"], "Odhlásit se")
+            .tag("a", ["href"=>"/signin.php"], "Odhlásit se")
         )
     )
 ));

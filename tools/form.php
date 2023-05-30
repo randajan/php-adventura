@@ -1,6 +1,6 @@
 <?php
 
-require_once("../tools/tags.php");
+require_once("./tools/tags.php");
 
 function inputField($name, $title, $type="", $required=false) {
 

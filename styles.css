@@ -23,13 +23,16 @@ body {
     text-align:center;
 }
 
-.bag-pane {
-}
 
 .bag {
     display:flex;
     justify-content:center;
 }
+
+h2, h3 {
+    text-align:center;
+}
+
 
 .bag .stuff {
     border:1px dashed lightgray;

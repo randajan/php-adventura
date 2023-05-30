@@ -1,11 +1,11 @@
 <?php
 
 
-require_once("../tools/tags.php");
-require_once("../components/page.php");
-require_once("../components/form.php");
+require_once("./tools/tags.php");
+require_once("./tools/page.php");
+require_once("./tools/form.php");
 
-require_once("../db/db.php");
+require_once("./db/db.php");
 
 unset($_SESSION["userId"]);
 unset($_SESSION["characterId"]);
@@ -29,7 +29,7 @@ function signIn() {
     if (!$result) { return "Špatné heslo"; }
     
     $_SESSION["userId"] = $user["id"];
-    header('Location: /www/characters.php');
+    header('Location: /characters.php');
 
 }
 
@@ -41,7 +41,7 @@ echo(htmlPage("Přihlášení",
                 .inputField("password", "Heslo", "password", true)
                 .tag("input", ["type"=>"submit", "value"=>"Přihlásit"], false, false)
                 .tag("div", ["class"=>"msg"], signIn())
-                .tag("div", [], tag("a", ["href"=>"/www/signup.php"], "Registrovat"))
+                .tag("div", [], tag("a", ["href"=>"/signup.php"], "Registrovat"))
             )
         )
     )

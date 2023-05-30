@@ -4,7 +4,12 @@ session_start();
 
 $env = parse_ini_file("../.env");
 
-$db = new mysqli($env["DBhost"], $env["DBuser"], $env["DBpass"], $env["DBname"]);
+$DBhost = "10.10.0.10:3307";
+$DBname = "php_adventura";
+$DBuser = "php_adventura";
+$DBpass = "Guwajip=71";
+
+$db = new mysqli($DBhost, $DBuser, $DBpass, $DBname);
 
 if ($db->connect_error) {
     die("Chyba při připojení k databázi: " . $db->connect_error);
@@ -29,8 +34,6 @@ function dbGetWhere($tbln, $where="", $singleRow=true) {
 function dbGetAll($tbln, $where="") {
     return dbGetWhere($tbln, $where, false);
 }
-
-
 
 function dbGetOne($tbln, $id) {
     return dbGetWhere($tbln, "`id`='$id'", true);
