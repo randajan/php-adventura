@@ -41,7 +41,7 @@ echo(htmlPage("Přihlášení",
                 .inputField("password", "Heslo", "password", true)
                 .tag("input", ["type"=>"submit", "value"=>"Přihlásit"], false, false)
                 .tag("div", ["class"=>"msg"], signIn())
-                .tag("a", ["href"=>"/www/signup.php"], "Registrovat")
+                .tag("div", [], tag("a", ["href"=>"/www/signup.php"], "Registrovat"))
             )
         )
     )

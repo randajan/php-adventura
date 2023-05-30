@@ -1,3 +1,0 @@
-# Maska
-
-Černá maska pachatele.

@@ -4,7 +4,7 @@ require_once("../game/character.php");
 require_once("../game/actions.php");
 require_once("../game/loaders.php");
 require_once("../components/page.php");
-require_once("../class/Parsedown.php");
+require_once("../tools/Parsedown.php");
 require_once("../tools/tags.php");
 
 if (isset($_GET["scene"])) { gotoScene($_GET["scene"]); }
