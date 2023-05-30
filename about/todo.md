@@ -7,3 +7,7 @@ Jaké budou další postavy
 Jaké budou předměty 
 Jak bude hra začínat
 Jak bude končit
+
+
+
+TODO:

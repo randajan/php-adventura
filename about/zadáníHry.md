@@ -32,8 +32,8 @@ Online textová hra - detektivní adventůra
 
 ## Databáze
 - Uživatelé
-- Postavy
 - Scény
+- Věci
 
 ## Cílová skupina
 
