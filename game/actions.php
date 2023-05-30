@@ -1,5 +1,7 @@
 <?php
 
+require_once("../db/db.php");
+
 function gotoScene($sceneId) {
     global $state;
     $state["focus"] = "";
@@ -8,22 +10,12 @@ function gotoScene($sceneId) {
 
 function pickUp($stuffId) {
     global $state;
-    //$stuff = file_get_contents("../db/stuff/$stuffId.md");
 
-    $state["bag"][$stuffId] = $stuffId;
+    $stuff = dbGetOne("vstr_stuffs", $stuffId);
+    $state["bag"][$stuffId] = $stuff["title"];
 }
 
 function focusOn($stuffId) {
     global $state;
     $state["focus"] = $stuffId;
-}
-
-function getScene($sceneId) {
-    if (!isset($sceneId)) { return ""; }
-    return file_get_contents("../db/scenes/$sceneId.md");
-}
-
-function getStuff($stuffId) {
-    if (!$stuffId) { return ""; }
-    return file_get_contents("../db/stuff/$stuffId.md");
 }

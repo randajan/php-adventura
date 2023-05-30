@@ -2,6 +2,7 @@
 
 require_once("../game/state.php");
 require_once("../game/actions.php");
+require_once("../game/loaders.php");
 require_once("../components/page.php");
 require_once("../class/Parsedown.php");
 require_once("../tools/tags.php");
@@ -10,8 +11,8 @@ if (isset($_GET["scene"])) { gotoScene($_GET["scene"]); }
 if (isset($_GET["stuff"])) { pickUp($_GET["stuff"]); }
 if (isset($_GET["focus"])) { focusOn($_GET["focus"]); }
 
-$scene = (new Parsedown())->text(getScene($state["scene"]));
-$focus = (new Parsedown())->text(getStuff($state["focus"]));
+$scene = getScene($state["scene"]);
+$focus = getStuff($state["focus"]);
 $bag = "";
 
 foreach ($state["bag"] as $k=>$v) {
@@ -20,14 +21,25 @@ foreach ($state["bag"] as $k=>$v) {
     );
 }
 
+function desc($sceneOrStuff) {
+    if (!$sceneOrStuff) { return ""; }
+    $title = $sceneOrStuff["title"];
+    $description = $sceneOrStuff["description"];
+   
+    return tag("div", ["class"=>"scene"], 
+        tag("h1", [], $title)
+        .tag("div", ["class"=>"description"], (new Parsedown())->text($description))
+    );
+}
+
 echo(htmlPage("Vyšetřovatel",
     tag("div", ["class"=>"board"], 
         tag("div", ["class"=>"block"],
-            tag("div", ["class"=>"scene"], $scene)
-            .tag("div", ["class"=>"focus"], $focus)
+            desc($scene)
+            .desc($focus)
             .tag("div", ["class"=>"bag-pane"],
                 tag("div", ["class"=>"block"],
-                    tag("h2", "", "Batoh")
+                    tag("h2", [], "Batoh")
                     .tag("div", ["class"=>"bag"], 
                         $bag
                     )
