@@ -43,7 +43,7 @@ echo(htmlPage("Vyšetřovatel",
                 )
             )
             .desc($focus, 3)
-            .tag("a", ["href"=>"/characters.php"], "Změnit postavu")
+            .tag("a", ["href"=>getUrl("characters.php")], "Změnit postavu")
         )
     )
 ));

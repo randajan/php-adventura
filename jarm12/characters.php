@@ -48,7 +48,7 @@ $characters = dbGetAll("vstr_characters", "`user`='$userId'");
 $chrs = "";
 foreach ($characters as $character) {
     $chrs .= tag("div", ["class"=>"character"],
-        tag("a", ["href"=>"/game.php?selectCharacter=".$character["id"]], $character["name"])
+        tag("a", ["href"=>getUrl("game.php?selectCharacter=".$character["id"])], $character["name"])
     );
 }
 
@@ -63,7 +63,7 @@ echo(htmlPage("Postavy",
                     .tag("div", ["class"=>"msg"], $msg)
                 )
             )
-            .tag("a", ["href"=>"/signin.php"], "Odhlásit se")
+            .tag("a", ["href"=>getUrl("signin.php")], "Odhlásit se")
         )
     )
 ));

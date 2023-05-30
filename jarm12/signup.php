@@ -30,7 +30,8 @@ function signUp() {
     if (!$user) { return "Chyba při registraci"; }
 
     $_SESSION["userId"] = $user["id"];
-    header('Location: /characters.php');
+    header('Location: '.getUrl("characters.php"));
+    die();
 
 }
 

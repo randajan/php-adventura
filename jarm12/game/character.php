@@ -13,7 +13,7 @@ $characterId = $_SESSION["characterId"];
 $character = dbGetWhere("vstr_characters", "`user`='$userId' AND `id`='$characterId'");
 
 if (!$character) {
-    header('Location: /characters.php');
+    header('Location: '.getUrl("characters.php"));
     die("Tato stránka je k dispozici pouze s vytvořenou postavou");
 }
 

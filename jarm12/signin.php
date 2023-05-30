@@ -29,7 +29,8 @@ function signIn() {
     if (!$result) { return "Špatné heslo"; }
     
     $_SESSION["userId"] = $user["id"];
-    header('Location: /characters.php');
+    header('Location: '.getUrl("characters.php"));
+    die();
 
 }
 
@@ -41,7 +42,7 @@ echo(htmlPage("Přihlášení",
                 .inputField("password", "Heslo", "password", true)
                 .tag("input", ["type"=>"submit", "value"=>"Přihlásit"], false, false)
                 .tag("div", ["class"=>"msg"], signIn())
-                .tag("div", [], tag("a", ["href"=>"/signup.php"], "Registrovat"))
+                .tag("div", [], tag("a", ["href"=>getUrl("signup.php")], "Registrovat"))
             )
         )
     )

@@ -2,12 +2,16 @@
 
 session_start();
 
-$env = parse_ini_file("../.env");
-
 $DBhost = "10.10.0.10:3307";
 $DBname = "php_adventura";
 $DBuser = "php_adventura";
 $DBpass = "Guwajip=71";
+$URLroot = "/jarm12";
+
+function getURL($path) {
+    global $URLroot;
+    return $URLroot."/".$path;
+}
 
 $db = new mysqli($DBhost, $DBuser, $DBpass, $DBname);
 

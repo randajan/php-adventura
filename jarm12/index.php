@@ -3,15 +3,15 @@
 require_once("./db/db.php");
 
 if (isset($_SESSION["characterId"])) {
-    header('Location: /game.php');
+    header('Location: '.getUrl("game.php"));
     die();
 }
 
 if (isset($_SESSION["userId"])) {
-    header('Location: /characters.php');
+    header('Location: '.getUrl("characters.php"));
     die();
 }
 
 
-header('Location: /signin.php');
+header('Location: '.getUrl("signin.php"));
 
