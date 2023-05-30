@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- Struktura tabulky `characters`
 --
 
-CREATE TABLE `characters` (
+CREATE TABLE `vstr_characters` (
   `id` int(8) NOT NULL,
   `user` int(8) NOT NULL,
   `name` varchar(32) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE `characters` (
 -- Struktura tabulky `scenes`
 --
 
-CREATE TABLE `scenes` (
+CREATE TABLE `vstr_scenes` (
   `id` varchar(16) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -52,7 +52,7 @@ CREATE TABLE `scenes` (
 -- Struktura tabulky `stuffs`
 --
 
-CREATE TABLE `stuffs` (
+CREATE TABLE `vstr_stuffs` (
   `id` varchar(16) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -63,7 +63,7 @@ CREATE TABLE `stuffs` (
 -- Struktura tabulky `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `vstr_users` (
   `id` int(8) NOT NULL,
   `username` varchar(32) NOT NULL,
   `password` varchar(32) NOT NULL
@@ -76,26 +76,26 @@ CREATE TABLE `users` (
 --
 -- Klíče pro tabulku `characters`
 --
-ALTER TABLE `characters`
+ALTER TABLE `vstr_characters`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_characters_user` (`user`);
 
 --
 -- Klíče pro tabulku `scenes`
 --
-ALTER TABLE `scenes`
+ALTER TABLE `vstr_scenes`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Klíče pro tabulku `stuffs`
 --
-ALTER TABLE `stuffs`
+ALTER TABLE `vstr_stuffs`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Klíče pro tabulku `users`
 --
-ALTER TABLE `users`
+ALTER TABLE `vstr_users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
 
@@ -106,13 +106,13 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT pro tabulku `characters`
 --
-ALTER TABLE `characters`
+ALTER TABLE `vstr_characters`
   MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pro tabulku `users`
 --
-ALTER TABLE `users`
+ALTER TABLE `vstr_users`
   MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
 
 --
@@ -122,8 +122,8 @@ ALTER TABLE `users`
 --
 -- Omezení pro tabulku `characters`
 --
-ALTER TABLE `characters`
-  ADD CONSTRAINT `fk_characters_user` FOREIGN KEY (`user`) REFERENCES `users` (`id`);
+ALTER TABLE `vstr_characters`
+  ADD CONSTRAINT `fk_characters_user` FOREIGN KEY (`user`) REFERENCES `vstr_users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
