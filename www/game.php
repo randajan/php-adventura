@@ -1,6 +1,6 @@
 <?php
 
-require_once("../game/state.php");
+require_once("../game/character.php");
 require_once("../game/actions.php");
 require_once("../game/loaders.php");
 require_once("../components/page.php");
@@ -45,7 +45,7 @@ echo(htmlPage("Vyšetřovatel",
                     )
                 )
             )
+            .tag("a", ["href"=>"/www/characters.php"], "Změnit postavu")
         )
-        .tag("a", ["href"=>"?reset=true"], "RESETOVAT HRU")
     )
 ));

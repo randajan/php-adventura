@@ -7,6 +7,9 @@ require_once("../components/form.php");
 
 require_once("../db/db.php");
 
+unset($_SESSION["userId"]);
+unset($_SESSION["characterId"]);
+
 function signIn() {
     global $db;
 
@@ -22,23 +25,24 @@ function signIn() {
     if (!$user) { return "Uživatel '$username' neexistuje"; }
 
     $result = password_verify($password, $user["password"]);
+
+    if (!$result) { return "Špatné heslo"; }
     
-    if ($result) {
-        $_SESSION["user"] = $user["id"];
-        header('Location: /www/user.php');
-        return "OK";
-    } else {
-        return "Špatné heslo";
-    }
+    $_SESSION["userId"] = $user["id"];
+    header('Location: /www/characters.php');
 
 }
 
 echo(htmlPage("Přihlášení",
-    tag("form", ["class"=>"signin", "method"=>"post", "action"=>$_SERVER["PHP_SELF"]],
-        inputField("username", "Uživatel", "", true)
-        .inputField("password", "Heslo", "password", true)
-        .tag("input", ["type"=>"submit", "value"=>"Přihlásit"], false, false)
-        .tag("div", ["class"=>"msg"], signIn())
-        .tag("a", ["href"=>"/www/signup.php"], "Registrovat")
+    tag("div", ["class"=>"board"], 
+        tag("div", ["class"=>"block"],
+            tag("form", ["class"=>"signin", "method"=>"post", "action"=>$_SERVER["PHP_SELF"]],
+                inputField("username", "Uživatel", "", true)
+                .inputField("password", "Heslo", "password", true)
+                .tag("input", ["type"=>"submit", "value"=>"Přihlásit"], false, false)
+                .tag("div", ["class"=>"msg"], signIn())
+                .tag("a", ["href"=>"/www/signup.php"], "Registrovat")
+            )
+        )
     )
 ));

@@ -10,20 +10,28 @@ if ($db->connect_error) {
     die("Chyba při připojení k databázi: " . $db->connect_error);
 }
 
-function dbGetAll($tbln) {
+function dbGetWhere($tbln, $where="", $singleRow=true) {
     global $db;
 
-    $result = $db->query("SELECT * FROM `$tbln`");
-    return $result->fetch_array();
+    $query = "SELECT * FROM `$tbln`";
+    if ($where) { $query .= " WHERE $where"; }
+
+    $result = $db->query($query);
+
+    if ($singleRow) { return $result->fetch_array(); }
+
+    $rows = [];
+    while ($row = $result->fetch_array()) { $rows[] = $row; }
+
+    return $rows;
 }
 
-function dbGetWhere($tbln, $where) {
-    global $db;
-
-    $result = $db->query("SELECT * FROM `$tbln` WHERE $where");
-    return $result->fetch_array();
+function dbGetAll($tbln, $where="") {
+    return dbGetWhere($tbln, $where, false);
 }
+
+
 
 function dbGetOne($tbln, $id) {
-    return dbGetWhere($tbln, "`id`='$id'");
+    return dbGetWhere($tbln, "`id`='$id'", true);
 }

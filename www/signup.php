@@ -24,18 +24,25 @@ function signUp() {
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
     $sql = "INSERT INTO vstr_users (username, password) VALUES ('$username', '$hash')";
-    if ($db->query($sql) === TRUE) {
-        return "Registrace proběhla úspěšně!";
-    } else {
-        return "Chyba při registraci";
-    }
+    if ($db->query($sql) !== TRUE) { return "Chyba při registraci"; }
+
+    $user = dbGetWhere("vstr_users", "`username`='$username'");
+    if (!$user) { return "Chyba při registraci"; }
+
+    $_SESSION["userId"] = $user["id"];
+    header('Location: /www/characters.php');
+
 }
 
 echo(htmlPage("Registrace",
-    tag("form", ["class"=>"signup", "method"=>"post", "action"=>$_SERVER["PHP_SELF"]],
-        inputField("username", "Uživatel", "", true)
-        .inputField("password", "Heslo", "password", true)
-        .tag("input", ["type"=>"submit", "value"=>"Registrovat"], false, false)
-        .tag("div", ["class"=>"msg"], signUp())
+    tag("div", ["class"=>"board"], 
+        tag("div", ["class"=>"block"],
+            tag("form", ["class"=>"signup", "method"=>"post", "action"=>$_SERVER["PHP_SELF"]],
+                inputField("username", "Uživatel", "", true)
+                .inputField("password", "Heslo", "password", true)
+                .tag("input", ["type"=>"submit", "value"=>"Registrovat"], false, false)
+                .tag("div", ["class"=>"msg"], signUp())
+            )
+        )
     )
 ));

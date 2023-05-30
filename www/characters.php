@@ -1,22 +1,69 @@
 <?php
 
+require_once("../tools/tags.php");
 require_once("../components/page.php");
+require_once("../components/form.php");
 
 require_once("../db/db.php");
+require_once("../game/user.php");
 
-function createChar() {
-    
+//logout character
+unset($_SESSION["characterId"]);
+
+function initState() {
+    $sceneStart = dbGetWhere("vstr_scenes", "`is_start`=1");
+    return [
+        "scene"=>$sceneStart["id"],
+        "focus"=>"",
+        "bag"=>[]
+    ];
 }
 
-$chrs = dbGetAll("vstr_characters");
+function createChar() {
+    global $db;
+    global $userId;
+
+    if ($_SERVER["REQUEST_METHOD"] != "POST") { return; }
+
+    $name = $db->real_escape_string($_POST["name"]);
+
+    if (!$name) { return; }
+
+    $char = dbGetWhere("vstr_characters", "`user`='$userId' AND `name`='$name'");
+
+    if (strlen($name) > 16) { return "Příliš dlouhé jméno"; }
+    if ($char) { return "Postava s tímto názvem již existuje"; }
+
+    $state = json_encode(initState());
+
+    $sql = "INSERT INTO vstr_characters (user, name, state) VALUES ('$userId', '$name', '$state')";
+    if (!$db->query($sql)) {
+        return "Postavu se nepodařilo vytvořit";
+    }
+}
+
+$msg = createChar();
+$characters = dbGetAll("vstr_characters", "`user`='$userId'");
+
+$chrs = "";
+foreach ($characters as $character) {
+    $chrs .= tag("div", ["class"=>"character"],
+        tag("a", ["href"=>"/www/game.php?selectCharacter=".$character["id"]], $character["name"])
+    );
+}
 
 echo(htmlPage("Postavy",
-    tag("div", ["class"=>"characters"],
-        tag("form", ["class"=>"add", "method"=>"post", "action"=>$_SERVER["PHP_SELF"]],
-            inputField("name", "Jméno postavy", "", true)
-            .tag("input", ["type"=>"submit", "value"=>"Přihlásit"], false, false)
-            .tag("div", ["class"=>"msg"], createChar())
-            .tag("a", ["href"=>"/www/signup.php"], "Registrovat")
+    tag("div", ["class"=>"board"], 
+        tag("div", ["class"=>"block"],
+            tag("div", ["class"=>"characters"],
+                tag("div", ["class"=>"list"], $chrs)
+                .tag("form", ["class"=>"add", "method"=>"post", "action"=>$_SERVER["PHP_SELF"]],
+                    inputField("name", "Jméno postavy", "", true)
+                    .tag("input", ["type"=>"submit", "value"=>"Vytvořit postavu"], false, false)
+                    .tag("div", ["class"=>"msg"], $msg)
+                )
+            )
+            .tag("a", ["href"=>"/www/signin.php"], "Odhlásit se")
         )
     )
 ));
