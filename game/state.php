@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-//session_unset();
+if (isset($_GET["reset"])) { session_unset(); }
 
 if (!isset($_SESSION["state"])) {
     $_SESSION["state"] = [
@@ -12,4 +12,4 @@ if (!isset($_SESSION["state"])) {
 }
 
 
-$state = $_SESSION["state"];
+$state = &$_SESSION["state"];

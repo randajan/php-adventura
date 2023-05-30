@@ -10,8 +10,6 @@ if (isset($_GET["scene"])) { gotoScene($_GET["scene"]); }
 if (isset($_GET["stuff"])) { pickUp($_GET["stuff"]); }
 if (isset($_GET["focus"])) { focusOn($_GET["focus"]); }
 
-var_dump($state);
-
 $scene = (new Parsedown())->text(getScene($state["scene"]));
 $focus = (new Parsedown())->text(getStuff($state["focus"]));
 $bag = "";
@@ -36,5 +34,6 @@ echo(htmlPage("Vyšetřovatel",
                 )
             )
         )
+        .tag("a", ["href"=>"?reset=true"], "RESETOVAT HRU")
     )
 ));

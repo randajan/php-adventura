@@ -2,6 +2,7 @@
 
 function gotoScene($sceneId) {
     global $state;
+    $state["focus"] = "";
     $state["scene"] = $sceneId;
 }
 
