@@ -1,4 +1,4 @@
 # Mobil
 
 SMS Zpráva
-Setkáme se v [budově](?scene=building) vedle parku. Místnost 2. Vem všechny věci.
+Vem všechny věci a setkáme se v [budově](?scene=building) vedle parku. Místnost 2.
