@@ -14,8 +14,11 @@ function signUp() {
 
     $username = $db->real_escape_string($_POST["username"]);
     $password = $db->real_escape_string($_POST["password"]);
+    $password_confirm = $db->real_escape_string($_POST["password_confirm"]);
 
-    if (!$username || !$password) { return; }
+    if (!$username || !$password || !$password_confirm) { return; }
+
+    if ($password !== $password_confirm) { return "Hesla se neshodují"; }
 
     if (strlen($username) > 16) { return "Příliš dlouhé uživatelské jméno"; }
     if (strlen($password) > 16) { return "Příliš dlouhé heslo"; }
@@ -23,8 +26,8 @@ function signUp() {
 
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO vstr_users (username, password) VALUES ('$username', '$hash')";
-    if ($db->query($sql) !== TRUE) { return "Chyba při registraci"; }
+    $query = dbInsert("vstr_users", ["username"=>$username, "password"=>$hash]);
+    if (!$query) { return "Chyba při registraci"; }
 
     $user = dbGetWhere("vstr_users", "`username`='$username'");
     if (!$user) { return "Chyba při registraci"; }
@@ -41,6 +44,7 @@ echo(htmlPage("Registrace",
             tag("form", ["class"=>"signup", "method"=>"post", "action"=>$_SERVER["PHP_SELF"]],
                 inputField("username", "Uživatel", "", true)
                 .inputField("password", "Heslo", "password", true)
+                .inputField("password_confirm", "Potvrzení hesla", "password", true)
                 .tag("input", ["type"=>"submit", "value"=>"Registrovat"], false, false)
                 .tag("div", ["class"=>"msg"], signUp())
             )

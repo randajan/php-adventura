@@ -36,10 +36,8 @@ function createChar() {
 
     $state = json_encode(initState());
 
-    $sql = "INSERT INTO vstr_characters (user, name, state) VALUES ('$userId', '$name', '$state')";
-    if (!$db->query($sql)) {
-        return "Postavu se nepodařilo vytvořit";
-    }
+    $query = dbInsert("vstr_characters", ["user"=>$userId, "name"=>$name, "state"=>$state]);
+    if (!$query) { return "Postavu se nepodařilo vytvořit"; }
 }
 
 $msg = createChar();
@@ -48,7 +46,7 @@ $characters = dbGetAll("vstr_characters", "`user`='$userId'");
 $chrs = "";
 foreach ($characters as $character) {
     $chrs .= tag("div", ["class"=>"character"],
-        tag("a", ["href"=>getUrl("game.php?selectCharacter=".$character["id"])], $character["name"])
+        tag("a", ["href"=>getUrl("game.php?selectCharacter=".$character["id"])], htmlspecialchars($character["name"]))
     );
 }
 
