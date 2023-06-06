@@ -4,7 +4,6 @@ require_once("./game/character.php");
 require_once("./game/actions.php");
 require_once("./game/loaders.php");
 require_once("./tools/page.php");
-require_once("./tools/Parsedown.php");
 require_once("./tools/tags.php");
 
 if (isset($_GET["scene"])) { gotoScene($_GET["scene"]); }
@@ -28,7 +27,7 @@ function desc($sceneOrStuff, $h=2) {
    
     return tag("div", ["class"=>"scene"], 
         tag("h$h", [], $title)
-        .tag("div", ["class"=>"description"], (new Parsedown())->text($description))
+        .tag("div", ["class"=>"description"], $description)
     );
 }
 
