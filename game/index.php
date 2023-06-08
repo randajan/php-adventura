@@ -28,7 +28,7 @@ $scene = getScene($character["scene"]);
 $focus = getStuff($character["focus"]);
 
 //generuje html herní stránky
-die(htmlPage("Vyšetřovatel - ".$character["name"],
+die(htmlPage("Vyšetřovatel - ".htmlspecialchars($character["name"]),
     tag("div", ["class"=>"board"], 
         href("changechar", "characters", "Změnit postavu")
         .tag("div", ["class"=>"block"],

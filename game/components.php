@@ -27,7 +27,7 @@ function getStuff($stuffId) {
 //vytvoří html odkaz na přesun do jiné místnosti
 function hrefGoto($sceneId) {
     $scene = getScene($sceneId);
-    return $scene ? tag("li", ["class"=>"goto"], tag("a", ["class"=>"title", "href"=>getURL("game/?goto=$sceneId")], $scene["title"])) : "";
+    return $scene ? tag("li", ["class"=>"goto"], tag("a", ["class"=>"title", "href"=>getURL("game/?goto=$sceneId")], htmlspecialchars($scene["title"]))) : "";
 }
 
 //vytvoří html odkaz na sebrání věci
@@ -35,7 +35,7 @@ function hrefPickup($stuffId) {
     global $characterStuffs;
     if (isset($characterStuffs[$stuffId])) { return ""; }
     $stuff = getStuff($stuffId);
-    return $stuff ? tag("li", ["class"=>"pickup"], tag("a", ["class"=>"title", "href"=>getURL("game/?pickup=$stuffId")], $stuff["title"])) : "";
+    return $stuff ? tag("li", ["class"=>"pickup"], tag("a", ["class"=>"title", "href"=>getURL("game/?pickup=$stuffId")], htmlspecialchars($stuff["title"]))) : "";
 }
 
 //vytváří html pro zobrazení scény nebo předmětu na který má hráč zaměření, parametr $h určuje o jakou úroveň nadpisu v html se jedná (h1,h2,h3,h4)
@@ -52,8 +52,8 @@ function gameDesc($sceneOrStuff, $h=2) {
     $pickups = hrefPickup($sceneOrStuff["stuff_1"]).hrefPickup($sceneOrStuff["stuff_2"]);
     
     return tag("div", ["class"=>"gamedesc"], 
-        tag("h$h", [], $title)
-        .tag("div", ["class"=>"description"], $description)
+        tag("h$h", [], htmlspecialchars($title))
+        .tag("div", ["class"=>"description"], htmlspecialchars($description))
         .(!$gotos ? "" : tag("div", ["class"=>"gotos"],
             tag("h".($h+1), [], "Nová místa")
             .tag("ul", ["class"=>"content"], $gotos)
@@ -74,7 +74,7 @@ function gameCharStuffs() {
   foreach ($characterStuffs as $id=>$chstuff) {
       $stuff = getStuff($id);
       $result .= tag("li", ["class"=>"stuff", "id"=>"stuff-$id"],
-          tag("a", ["class"=>"title", "href"=>"?focus=$id"], $stuff["title"])
+          tag("a", ["class"=>"title", "href"=>"?focus=$id"], htmlspecialchars($stuff["title"]))
       );
   }
 
@@ -98,7 +98,7 @@ function gameCharScenes() {
         $tagname = $id === $character["scene"] ? "span" : "a";
 
         $result .= tag("li", ["class"=>"scene", "id"=>"scene-$id"],
-            tag($tagname, ["class"=>"title", "href"=>"?goto=$id"], $scene["title"])
+            tag($tagname, ["class"=>"title", "href"=>"?goto=$id"], htmlspecialchars($scene["title"]))
         );
     }
   
