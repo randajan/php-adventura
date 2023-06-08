@@ -1,11 +1,11 @@
 <?php
 
-require_once("./tools/tags.php");
-require_once("./tools/page.php");
-require_once("./tools/form.php");
+require_once("../tools/tags.php");
+require_once("../tools/page.php");
+require_once("../tools/components.php");
 
-require_once("./db/db.php");
-require_once("./game/user.php");
+require_once("../db/db.php");
+require_once("../game/user.php");
 
 //logout character
 unset($_SESSION["characterId"]);
@@ -46,7 +46,7 @@ $characters = dbGetAll("vstr_characters", "`user`='$userId'");
 $chrs = "";
 foreach ($characters as $character) {
     $chrs .= tag("div", ["class"=>"character"],
-        tag("a", ["href"=>getUrl("game.php?selectCharacter=".$character["id"])], htmlspecialchars($character["name"]))
+        tag("a", ["href"=>getUrl("game?selectCharacter=".$character["id"])], htmlspecialchars($character["name"]))
     );
 }
 
@@ -61,7 +61,8 @@ echo(htmlPage("Postavy",
                     .tag("div", ["class"=>"msg"], $msg)
                 )
             )
-            .tag("a", ["href"=>getUrl("signin.php")], "Odhlásit se")
+            .href("signout", "user", "Odhlásit se")
         )
     )
+    .(!$user["is_admin"] ? "" : href("adminedit", "admin", "Upravit nastavení"))
 ));

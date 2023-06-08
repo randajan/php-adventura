@@ -1,6 +1,6 @@
 <?php
 
-require_once("./game/user.php");
+require_once("../game/user.php");
 
 
 
@@ -13,7 +13,7 @@ $characterId = $_SESSION["characterId"];
 $character = dbGetWhere("vstr_characters", "`user`='$userId' AND `id`='$characterId'");
 
 if (!$character) {
-    header('Location: '.getUrl("characters.php"));
+    header('Location: '.getUrl("characters"));
     die("Tato stránka je k dispozici pouze s vytvořenou postavou");
 }
 

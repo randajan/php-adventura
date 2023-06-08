@@ -1,26 +1,30 @@
 <?php
 
-require_once("./tools/tags.php");
-require_once("./tools/page.php");
-require_once("./tools/form.php");
+require_once("../tools/tags.php");
+require_once("../tools/page.php");
+require_once("../tools/components.php");
 
-require_once("./db/db.php");
-require_once("./game/user.php");
+require_once("../db/db.php");
+require_once("../game/user.php");
+
+
 
 function adminInput($column, $value) {
     $columnName = $column['Field'];
     $columnType = $column["Type"];
+    $columnAI = $column["AutoIncrement"];
 
     $attr = [
         "type"=>"text",
         "name"=>$columnName,
-        "value"=>$value,
+        "value"=>$value != null ? $value : $column["Default"],
         "class"=>"dbfield",
         "size"=>$column["Length"],
         "data-dbtype"=>$columnType
     ];
 
-    if ($columnName === "id") { $attr["readonly"] = ""; }
+    if ($columnName === "id") { $attr["required"] = ""; }
+    if ($columnName === "id" && ($value || $columnAI)) { $attr["readonly"] = ""; }
 
     return tag("input", $attr, "", false);
 }
@@ -52,6 +56,7 @@ function adminSelect($column, $value, $options) {
 function adminTextarea($column, $value) {
     $columnName = $column['Field'];
     $columnType = $column["Type"];
+    $columnAI = $column["AutoIncrement"];
 
     $attr = [
         "name" => $columnName,
@@ -61,33 +66,41 @@ function adminTextarea($column, $value) {
         "data-dbtype" => $columnType
     ];
 
-    if ($columnName === "id") { $attr["readonly"] = ""; }
+    if ($columnName === "id") { $attr["required"] = ""; }
+    if ($columnName === "id" && $columnAI) { $attr["readonly"] = ""; }
 
-    return tag("textarea", $attr, $value);
+    return tag("textarea", $attr, $value, true, true);
 }
 
-function adminRow($table, $columns, $row, $foreignData=[]) {
+function adminRow($table, $columns, $row=null, $foreignData=[]) {
     $result = "";
+    
     foreach ($columns as $column) {
-        $value = $row[$column["Field"]];
+        $value = $row ? $row[$column["Field"]] : "";
         $type = $column["Type"];
         $cfk = $column["ForeignKey"];
 
         if ($cfk) { $field = adminSelect($column, $value, $foreignData[$cfk]); }
-        else if ($type === "longtext") { $field = adminTextarea($column, $value); }
+        else if ($type === "longtext" || $type === "text") { $field = adminTextarea($column, $value); }
         else { $field = adminInput($column, $value); }
         
         $result .= tag("td", [], $field);
     }
-    $result .= tag("td", [], tag("input", ["type"=>"submit", "value"=>"Update"], "", false));
-    
-    return tag("form", ["method"=>"POST", "action"=>"/admin.php?table=$table"], tag("tr", [], $result));
+
+    $buttonValue = $row ? "update" : "insert";
+    $result .= tag("td", [], tag("input", ["type"=>"submit", "name"=>"action", "value"=>$buttonValue], "", false));
+    if ($row) { $result .= tag("td", [], tag("input", [
+        "type"=>"submit", "name"=>"action", "value"=>"delete",
+        "onclick" => "return confirm('Opravdu smazat?');"
+    ], "", false)); }
+
+    return tag("form", ["method"=>"POST", "action"=>"/admin?table=$table"], tag("tr", [], $result));
 }
 
 
 function adminTable($table, $columns, $rows) {
 
-     // Generuje hlavičku tabulky
+    // Generuje hlavičku tabulky
     $thead = "";
     $foreignData = [];
     foreach ($columns as $column) {
@@ -102,5 +115,19 @@ function adminTable($table, $columns, $rows) {
     $tbody = "";
     foreach ($rows as $row) { $tbody .= adminRow($table, $columns, $row, $foreignData); }
 
+    $tbody .= adminRow($table, $columns, null, $foreignData);
+
     return tag("table", [], tag("thead", [], $thead).tag("tbody", [], $tbody));
+}
+
+
+function adminList() {
+    global $DBtables;
+
+    $result = "";
+    foreach($DBtables as $name=>$title) {
+        $result .= tag("li", [], tag("a", ["href"=>getURL("admin?table=$name")], $title));
+    }
+
+    return tag("ul", [], $result);
 }

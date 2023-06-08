@@ -1,11 +1,11 @@
 <?php
 
 
-require_once("./tools/tags.php");
-require_once("./tools/page.php");
-require_once("./tools/form.php");
+require_once("../tools/tags.php");
+require_once("../tools/page.php");
+require_once("../tools/components.php");
 
-require_once("./db/db.php");
+require_once("../db/db.php");
 
 function signUp() {
     global $db;
@@ -33,7 +33,7 @@ function signUp() {
     if (!$user) { return "Chyba při registraci"; }
 
     $_SESSION["userId"] = $user["id"];
-    header('Location: '.getUrl("characters.php"));
+    header('Location: '.getUrl("characters"));
     die();
 
 }

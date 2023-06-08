@@ -1,6 +1,6 @@
 <?php
 
-require_once("./db/db.php");
+require_once("../db/db.php");
 
 function getScene($sceneId) {
     if (!isset($sceneId)) { return; }

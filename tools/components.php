@@ -1,6 +1,6 @@
 <?php
 
-require_once("./tools/tags.php");
+require_once("../tools/tags.php");
 
 function inputField($name, $title, $type="", $required=false) {
 
@@ -12,4 +12,8 @@ function inputField($name, $title, $type="", $required=false) {
     tag("label", ["for"=>$name], $title)
     .tag("input", $atr, "", false)
   );
+}
+
+function href($cn, $page, $title) {
+  return tag("div", ["class"=>$cn], tag("a", ["href"=>getURL($page)], $title));
 }

@@ -1,10 +1,11 @@
 <?php
 
-require_once("./game/character.php");
-require_once("./game/actions.php");
-require_once("./game/loaders.php");
-require_once("./tools/page.php");
-require_once("./tools/tags.php");
+require_once("../tools/components.php");
+require_once("../game/character.php");
+require_once("../game/actions.php");
+require_once("../game/loaders.php");
+require_once("../tools/page.php");
+require_once("../tools/tags.php");
 
 if (isset($_GET["scene"])) { gotoScene($_GET["scene"]); }
 if (isset($_GET["stuff"])) { pickUp($_GET["stuff"]); }
@@ -42,7 +43,7 @@ echo(htmlPage("Vyšetřovatel",
                 )
             )
             .desc($focus, 3)
-            .tag("a", ["href"=>getUrl("characters.php")], "Změnit postavu")
+            .href("changechar", "characters", "Změnit postavu")
         )
     )
 ));

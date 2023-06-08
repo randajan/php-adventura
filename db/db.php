@@ -8,6 +8,13 @@ $DBuser = "php_adventura";
 $DBpass = "Guwajip=71";
 $URLroot = "";
 
+$DBtables = [
+    "vstr_scenes"=>"Scény",
+    "vstr_users"=>"Uživatelé",
+    "vstr_characters"=>"Postavy",
+    "vstr_stuffs"=>"Věci"
+];
+
 function getURL($path) {
     global $URLroot;
     return $URLroot."/".$path;
@@ -17,6 +24,11 @@ $db = new mysqli($DBhost, $DBuser, $DBpass, $DBname);
 
 if ($db->connect_error) {
     die("Chyba při připojení k databázi: " . $db->connect_error);
+}
+
+function dbGetTitle($tbln) {
+    global $DBtables;
+    return $DBtables[$tbln] ?: $tbln;
 }
 
 function dbGetWhere($tbln, $where="", $singleRow=true) {
@@ -92,6 +104,15 @@ function dbUpdate($tbln, $id, $vals) {
     return $db->query($query);
 }
 
+function dbDelete($tbln, $id) {
+    global $db;
+
+    $id = $db->real_escape_string($id);
+    $query = "DELETE FROM `$tbln` WHERE id = '$id'";
+
+    return $db->query($query);
+}
+
 function dbGetColumns($tbln) {
     global $db;
 
@@ -104,6 +125,7 @@ function dbGetColumns($tbln) {
 
         $row["Length"] = $parsed["length"];
         $row["Type"] = $parsed["type"];
+        $row["AutoIncrement"] = strpos($row["Extra"], "auto_increment") !== false;
 
         $columns[] = $row;
     }
