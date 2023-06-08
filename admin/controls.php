@@ -94,7 +94,7 @@ function adminRow($table, $columns, $row=null, $foreignData=[]) {
         "onclick" => "return confirm('Opravdu smazat?');"
     ], "", false)); }
 
-    return tag("form", ["method"=>"POST", "action"=>"/admin?table=$table"], tag("tr", [], $result));
+    return tag("form", ["method"=>"POST", "action"=>getURL("admin?table=$table")], tag("tr", [], $result));
 }
 
 
@@ -105,7 +105,7 @@ function adminTable($table, $columns, $rows) {
     $foreignData = [];
     foreach ($columns as $column) {
         $cfk = $column["ForeignKey"];
-        if ($cfk && !$foreignData[$cfk]) {
+        if ($cfk && !isset($foreignData[$cfk])) {
             $foreignData[$cfk] = dbGetAllIdOnly($cfk);
         }
         $thead .= tag("th", "", $column['Field']);

@@ -23,11 +23,12 @@ body {
     text-align:center;
 }
 
-h1 {
-    
-}
 h2, h3 {
     text-align:center;
+}
+
+.block {
+    margin-top:1em;
 }
 
 .flex {

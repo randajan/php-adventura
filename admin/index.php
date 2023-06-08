@@ -10,9 +10,9 @@ require_once("../admin/controls.php");
 //important
 require_once("../admin/firewall.php");
 
-$tableName = $_GET["table"];
 
-if (!$tableName) {
+
+if (!isset($_GET["table"])) {
     die(htmlPage("Admin",
         tag("div", ["class"=>"board"], 
             href("back", "", "Zpět do hry")
@@ -21,6 +21,7 @@ if (!$tableName) {
     ));
 }
 
+$tableName = $_GET["table"];
 $tableColumns = dbGetColumnsWithFK($tableName); // Vezme všechny sloupce tabulky
 
 function fetchPostData($isUpdate=true) {
@@ -37,7 +38,8 @@ function fetchPostData($isUpdate=true) {
     return $data;
 }
 
-$action = $_POST["action"];
+$action = isset($_POST["action"]) ? $_POST["action"] : "";
+
 if ($action === "update") {
     dbUpdate($tableName, $_POST["id"], fetchPostData(true));
 }
