@@ -27,7 +27,7 @@ function hrefGoto($sceneId) {
 
 function hrefPickup($stuffId) {
     global $characterStuffs;
-    if ($characterStuffs[$stuffId]) { return ""; }
+    if (!isset($characterStuffs[$stuffId])) { return ""; }
     $stuff = getStuff($stuffId);
     return $stuff ? tag("li", ["class"=>"pickup"], tag("a", ["class"=>"title", "href"=>getURL("game?pickup=$stuffId")], $stuff["title"])) : "";
 }
