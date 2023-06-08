@@ -1,6 +1,6 @@
 <?php
 
-//REGISTRAČNÍ STRÁNKA - SAMA SE PŘESMĚRUJE JAKMILE 
+//REGISTRAČNÍ STRÁNKA - SAMA SE PŘESMĚRUJE JAKMILE SE UŽIVATEL ZAREGISTROUJE
 
 require_once("../tools/tags.php");
 require_once("../tools/page.php");
