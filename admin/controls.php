@@ -61,7 +61,7 @@ function adminTextarea($column, $value) {
     $attr = [
         "name" => $columnName,
         "class" => "dbfield",
-        "rows" => "5",  // Nastavení počtu řádků
+        "rows" => "5",
         "cols" => $column["Length"],
         "data-dbtype" => $columnType
     ];
@@ -94,7 +94,7 @@ function adminRow($table, $columns, $row=null, $foreignData=[]) {
         "onclick" => "return confirm('Opravdu smazat?');"
     ], "", false)); }
 
-    return tag("form", ["method"=>"POST", "action"=>getURL("admin?table=$table")], tag("tr", [], $result));
+    return tag("form", ["method"=>"POST", "action"=>getURL("admin/?table=$table")], tag("tr", [], $result));
 }
 
 

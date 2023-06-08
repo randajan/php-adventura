@@ -10,8 +10,6 @@ require_once("../admin/controls.php");
 //important
 require_once("../admin/firewall.php");
 
-
-
 if (!isset($_GET["table"])) {
     die(htmlPage("Admin",
         tag("div", ["class"=>"board"], 

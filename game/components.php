@@ -22,14 +22,14 @@ function getStuff($stuffId) {
 
 function hrefGoto($sceneId) {
     $scene = getScene($sceneId);
-    return $scene ? tag("li", ["class"=>"goto"], tag("a", ["class"=>"title", "href"=>getURL("game?goto=$sceneId")], $scene["title"])) : "";
+    return $scene ? tag("li", ["class"=>"goto"], tag("a", ["class"=>"title", "href"=>getURL("game/?goto=$sceneId")], $scene["title"])) : "";
 }
 
 function hrefPickup($stuffId) {
     global $characterStuffs;
     if (isset($characterStuffs[$stuffId])) { return ""; }
     $stuff = getStuff($stuffId);
-    return $stuff ? tag("li", ["class"=>"pickup"], tag("a", ["class"=>"title", "href"=>getURL("game?pickup=$stuffId")], $stuff["title"])) : "";
+    return $stuff ? tag("li", ["class"=>"pickup"], tag("a", ["class"=>"title", "href"=>getURL("game/?pickup=$stuffId")], $stuff["title"])) : "";
 }
 
 function gameDesc($sceneOrStuff, $h=2) {
@@ -63,7 +63,7 @@ function gameCharStuffs() {
   foreach ($characterStuffs as $id=>$chstuff) {
       $stuff = getStuff($id);
       $result .= tag("li", ["class"=>"stuff", "id"=>"stuff-$id"],
-          tag("a", ["class"=>"title", "href"=>"?focus=$id"], $stuff["title"])
+          tag("a", ["class"=>"title", "href"=>"game/?focus=$id"], $stuff["title"])
       );
   }
 
@@ -86,7 +86,7 @@ function gameCharScenes() {
         $tagname = $id === $character["scene"] ? "span" : "a";
 
         $result .= tag("li", ["class"=>"scene", "id"=>"scene-$id"],
-            tag($tagname, ["class"=>"title", "href"=>"?goto=$id"], $scene["title"])
+            tag($tagname, ["class"=>"title", "href"=>"game/?goto=$id"], $scene["title"])
         );
     }
   
