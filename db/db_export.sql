@@ -227,46 +227,46 @@ ALTER TABLE `vstr_users`
 -- Omezení pro tabulku `vstr_characters`
 --
 ALTER TABLE `vstr_characters`
-  ADD CONSTRAINT `fk_characters_user` FOREIGN KEY (`user`) REFERENCES `vstr_users` (`id`),
-  ADD CONSTRAINT `vstr_characters_ibfk_1` FOREIGN KEY (`scene`) REFERENCES `vstr_scenes` (`id`),
-  ADD CONSTRAINT `vstr_characters_ibfk_2` FOREIGN KEY (`focus`) REFERENCES `vstr_stuffs` (`id`);
+  ADD CONSTRAINT `fk_characters_user` FOREIGN KEY (`user`) REFERENCES `vstr_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_characters_ibfk_1` FOREIGN KEY (`scene`) REFERENCES `vstr_scenes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_characters_ibfk_2` FOREIGN KEY (`focus`) REFERENCES `vstr_stuffs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Omezení pro tabulku `vstr_characters_scenes`
 --
 ALTER TABLE `vstr_characters_scenes`
-  ADD CONSTRAINT `vstr_characters_scenes_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `vstr_characters` (`id`),
-  ADD CONSTRAINT `vstr_characters_scenes_ibfk_2` FOREIGN KEY (`scene_id`) REFERENCES `vstr_scenes` (`id`);
+  ADD CONSTRAINT `vstr_characters_scenes_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `vstr_characters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_characters_scenes_ibfk_2` FOREIGN KEY (`scene_id`) REFERENCES `vstr_scenes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Omezení pro tabulku `vstr_characters_stuffs`
 --
 ALTER TABLE `vstr_characters_stuffs`
-  ADD CONSTRAINT `vstr_characters_stuffs_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `vstr_characters` (`id`),
-  ADD CONSTRAINT `vstr_characters_stuffs_ibfk_2` FOREIGN KEY (`stuff_id`) REFERENCES `vstr_stuffs` (`id`);
+  ADD CONSTRAINT `vstr_characters_stuffs_ibfk_1` FOREIGN KEY (`character_id`) REFERENCES `vstr_characters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_characters_stuffs_ibfk_2` FOREIGN KEY (`stuff_id`) REFERENCES `vstr_stuffs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Omezení pro tabulku `vstr_scenes`
 --
 ALTER TABLE `vstr_scenes`
-  ADD CONSTRAINT `vstr_scenes_ibfk_1` FOREIGN KEY (`scene_1`) REFERENCES `vstr_scenes` (`id`),
-  ADD CONSTRAINT `vstr_scenes_ibfk_2` FOREIGN KEY (`scene_1`) REFERENCES `vstr_scenes` (`id`),
-  ADD CONSTRAINT `vstr_scenes_ibfk_3` FOREIGN KEY (`scene_2`) REFERENCES `vstr_scenes` (`id`),
-  ADD CONSTRAINT `vstr_scenes_ibfk_4` FOREIGN KEY (`stuff_1`) REFERENCES `vstr_stuffs` (`id`),
-  ADD CONSTRAINT `vstr_scenes_ibfk_5` FOREIGN KEY (`stuff_2`) REFERENCES `vstr_stuffs` (`id`),
-  ADD CONSTRAINT `vstr_scenes_ibfk_6` FOREIGN KEY (`scene_1`) REFERENCES `vstr_scenes` (`id`),
-  ADD CONSTRAINT `vstr_scenes_ibfk_7` FOREIGN KEY (`scene_2`) REFERENCES `vstr_scenes` (`id`),
-  ADD CONSTRAINT `vstr_scenes_ibfk_8` FOREIGN KEY (`stuff_1`) REFERENCES `vstr_stuffs` (`id`),
-  ADD CONSTRAINT `vstr_scenes_ibfk_9` FOREIGN KEY (`stuff_2`) REFERENCES `vstr_stuffs` (`id`);
+  ADD CONSTRAINT `vstr_scenes_ibfk_1` FOREIGN KEY (`scene_1`) REFERENCES `vstr_scenes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_scenes_ibfk_2` FOREIGN KEY (`scene_1`) REFERENCES `vstr_scenes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_scenes_ibfk_3` FOREIGN KEY (`scene_2`) REFERENCES `vstr_scenes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_scenes_ibfk_4` FOREIGN KEY (`stuff_1`) REFERENCES `vstr_stuffs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_scenes_ibfk_5` FOREIGN KEY (`stuff_2`) REFERENCES `vstr_stuffs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_scenes_ibfk_6` FOREIGN KEY (`scene_1`) REFERENCES `vstr_scenes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_scenes_ibfk_7` FOREIGN KEY (`scene_2`) REFERENCES `vstr_scenes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_scenes_ibfk_8` FOREIGN KEY (`stuff_1`) REFERENCES `vstr_stuffs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_scenes_ibfk_9` FOREIGN KEY (`stuff_2`) REFERENCES `vstr_stuffs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Omezení pro tabulku `vstr_stuffs`
 --
 ALTER TABLE `vstr_stuffs`
-  ADD CONSTRAINT `vstr_stuffs_ibfk_1` FOREIGN KEY (`scene_1`) REFERENCES `vstr_scenes` (`id`),
-  ADD CONSTRAINT `vstr_stuffs_ibfk_2` FOREIGN KEY (`scene_2`) REFERENCES `vstr_scenes` (`id`),
-  ADD CONSTRAINT `vstr_stuffs_ibfk_3` FOREIGN KEY (`stuff_1`) REFERENCES `vstr_stuffs` (`id`),
-  ADD CONSTRAINT `vstr_stuffs_ibfk_4` FOREIGN KEY (`stuff_2`) REFERENCES `vstr_stuffs` (`id`);
+  ADD CONSTRAINT `vstr_stuffs_ibfk_1` FOREIGN KEY (`scene_1`) REFERENCES `vstr_scenes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_stuffs_ibfk_2` FOREIGN KEY (`scene_2`) REFERENCES `vstr_scenes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_stuffs_ibfk_3` FOREIGN KEY (`stuff_1`) REFERENCES `vstr_stuffs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vstr_stuffs_ibfk_4` FOREIGN KEY (`stuff_2`) REFERENCES `vstr_stuffs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
