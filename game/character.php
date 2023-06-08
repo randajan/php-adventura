@@ -3,7 +3,6 @@
 require_once("../game/user.php");
 
 
-
 if (isset($_GET["selectCharacter"])) {
     $_SESSION["characterId"] = $_GET["selectCharacter"];
 }
@@ -16,5 +15,3 @@ if (!$character) {
     header('Location: '.getUrl("characters"));
     die("Tato stránka je k dispozici pouze s vytvořenou postavou");
 }
-
-$state = json_decode($character["state"], true);

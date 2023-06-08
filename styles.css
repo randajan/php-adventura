@@ -16,32 +16,38 @@ body {
 
 .board {
     width:100%;
-    
+    padding:1em;
 }
 
-.scene {
+.gamedesc .description {
     text-align:center;
 }
 
-
-.bag {
-    display:flex;
-    justify-content:center;
+h1 {
+    
 }
-
 h2, h3 {
     text-align:center;
 }
 
-
-.bag .stuff {
-    border:1px dashed lightgray;
-    padding:1em;
-    width:10em;
-    height:4em;
-    text-align:center;
+.flex {
+    display: flex;
+    justify-content: center;
+    border-top:1px dashed lightgray;
+    margin: 1em;
 }
 
-.bag .stuff .title {
-    text-align:center;
+.flex > * {
+    border: 1px solid lightgray;
+    margin:1em;
+    padding:1em 2em;
 }
+
+.field td:first-child {
+    text-align: right;
+}
+
+.characters .list {
+    margin-top: 2em;
+}
+

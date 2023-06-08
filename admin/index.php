@@ -15,8 +15,8 @@ $tableName = $_GET["table"];
 if (!$tableName) {
     die(htmlPage("Admin",
         tag("div", ["class"=>"board"], 
-            adminList()
-            .href("back", "", "Zpět do hry")
+            href("back", "", "Zpět do hry")
+            .adminList()
         )
     ));
 }
@@ -50,7 +50,7 @@ else if ($action === "delete") {
 
 die(htmlPage("Admin - ".dbGetTitle($tableName),
     tag("div", ["class"=>"board"], 
-        adminTable($tableName, $tableColumns, dbGetAll($tableName))
-        .href("back", "admin", "Zpět na seznam")
+        href("back", "admin", "Zpět na seznam")
+        .adminTable($tableName, $tableColumns, dbGetAll($tableName))
     )
 ));

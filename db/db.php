@@ -9,10 +9,12 @@ $DBpass = "Guwajip=71";
 $URLroot = "";
 
 $DBtables = [
-    "vstr_scenes"=>"Scény",
+    "vstr_scenes"=>"Místa",
     "vstr_users"=>"Uživatelé",
     "vstr_characters"=>"Postavy",
-    "vstr_stuffs"=>"Věci"
+    "vstr_stuffs"=>"Věci",
+    "vstr_characters_stuffs"=>"Věci postav",
+    "vstr_characters_scenes"=>"Místa postav"
 ];
 
 function getURL($path) {
@@ -181,4 +183,14 @@ function parseSqlType($typeStr) {
             "length" => null
         ];
     }
+}
+
+function reindexByKey($array, $key="id") {
+    $result = [];
+    foreach ($array as $item) {
+        if (isset($item[$key])) {
+            $result[$item[$key]] = $item;
+        }
+    }
+    return $result;
 }

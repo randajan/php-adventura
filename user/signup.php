@@ -42,9 +42,11 @@ echo(htmlPage("Registrace",
     tag("div", ["class"=>"board"], 
         tag("div", ["class"=>"block"],
             tag("form", ["class"=>"signup", "method"=>"post", "action"=>$_SERVER["PHP_SELF"]],
-                inputField("username", "Uživatel", "", true)
-                .inputField("password", "Heslo", "password", true)
-                .inputField("password_confirm", "Potvrzení hesla", "password", true)
+                tag("table", [], tag("tbody", [], 
+                    inputField("username", "Uživatel", "", true)
+                    .inputField("password", "Heslo", "password", true)
+                    .inputField("password_confirm", "Potvrzení hesla", "password", true)
+                ))
                 .tag("input", ["type"=>"submit", "value"=>"Registrovat"], false, false)
                 .tag("div", ["class"=>"msg"], signUp())
             )

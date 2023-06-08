@@ -10,15 +10,6 @@ require_once("../game/user.php");
 //logout character
 unset($_SESSION["characterId"]);
 
-function initState() {
-    $sceneStart = dbGetWhere("vstr_scenes", "`is_start`=1");
-    return [
-        "scene"=>$sceneStart["id"],
-        "focus"=>"",
-        "bag"=>[]
-    ];
-}
-
 function createChar() {
     global $db;
     global $userId;
@@ -34,10 +25,9 @@ function createChar() {
     if (strlen($name) > 16) { return "Příliš dlouhé jméno"; }
     if ($char) { return "Postava s tímto názvem již existuje"; }
 
-    $state = json_encode(initState());
-
-    $query = dbInsert("vstr_characters", ["user"=>$userId, "name"=>$name, "state"=>$state]);
+    $query = dbInsert("vstr_characters", ["user"=>$userId, "name"=>$name]);
     if (!$query) { return "Postavu se nepodařilo vytvořit"; }
+
 }
 
 $msg = createChar();
@@ -52,17 +42,19 @@ foreach ($characters as $character) {
 
 echo(htmlPage("Postavy",
     tag("div", ["class"=>"board"], 
-        tag("div", ["class"=>"block"],
+        (!$user["is_admin"] ? "" : href("adminedit", "admin", "Upravit nastavení"))
+        .href("signout", "user", "Odhlásit se")
+        .tag("div", ["class"=>"block"],
             tag("div", ["class"=>"characters"],
-                tag("div", ["class"=>"list"], $chrs)
-                .tag("form", ["class"=>"add", "method"=>"post", "action"=>$_SERVER["PHP_SELF"]],
-                    inputField("name", "Jméno postavy", "", true)
+                tag("form", ["class"=>"add", "method"=>"post", "action"=>$_SERVER["PHP_SELF"]],
+                    tag("table", [], tag("tbody", [], 
+                        inputField("name", "Jméno postavy", "", true)
+                    ))
                     .tag("input", ["type"=>"submit", "value"=>"Vytvořit postavu"], false, false)
                     .tag("div", ["class"=>"msg"], $msg)
                 )
+                .tag("div", ["class"=>"list"], $chrs)
             )
-            .href("signout", "user", "Odhlásit se")
         )
     )
-    .(!$user["is_admin"] ? "" : href("adminedit", "admin", "Upravit nastavení"))
 ));

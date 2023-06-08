@@ -8,9 +8,9 @@ function inputField($name, $title, $type="", $required=false) {
   if ($type) { $atr["type"] = $type; }
   if ($required) { $atr["required"] = ""; }
 
-  return tag("div", ["class"=>"field-$name"], 
-    tag("label", ["for"=>$name], $title)
-    .tag("input", $atr, "", false)
+  return tag("tr", ["class"=>"field $name"],
+    tag("td", [], tag("label", ["for"=>$name], $title))
+    .tag("td", [], tag("input", $atr, "", false))
   );
 }
 
