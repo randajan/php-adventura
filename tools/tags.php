@@ -1,7 +1,9 @@
 <?php
 
-function atr($atr)
-{
+//GENERÁTOR HTML
+
+//vytváří atributy pro HTML tagy
+function atr($atr) {
     if (gettype($atr) !== "array") {
         return $atr ?: "";
     };
@@ -12,8 +14,8 @@ function atr($atr)
     return $r;
 }
 
-function tag($tag, $atr = "", $val = "", $isPair = true, $isBlank = null)
-{
+//vytváří HTML tagy dle zadaných parametrů
+function tag($tag, $atr = "", $val = "", $isPair = true, $isBlank = null) {
     $isBlank = $isBlank !== null ? $isBlank : !$isPair;
     return (($isBlank || $val) ? "<$tag" . atr($atr) . ">$val" . ($isPair ? "</$tag>" : "") : "");
 }

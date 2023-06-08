@@ -1,7 +1,10 @@
 <?php
 
+//JEDNODUCHÉ UNIVERZÁLNÍ KOMPONENTY
+
 require_once("../tools/tags.php");
 
+//vytváří políčko ve formuláři
 function inputField($name, $title, $type="", $required=false) {
 
   $atr = ["name"=>$name];
@@ -14,6 +17,7 @@ function inputField($name, $title, $type="", $required=false) {
   );
 }
 
+//vytváří odkaz
 function href($cn, $page, $title) {
   return tag("div", ["class"=>$cn], tag("a", ["href"=>getURL($page)], $title));
 }

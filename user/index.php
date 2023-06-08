@@ -1,5 +1,6 @@
 <?php
 
+//PŘIHLAŠOVACÍ STRÁNKA + TLAČÍTKO PRO REGISTRACI
 
 require_once("../tools/tags.php");
 require_once("../tools/page.php");
@@ -7,9 +8,11 @@ require_once("../tools/components.php");
 
 require_once("../db/db.php");
 
+//odhlásí uživatele a také postavu
 unset($_SESSION["userId"]);
 unset($_SESSION["characterId"]);
 
+//přihlašovací funkce
 function signIn() {
     global $db;
 
@@ -28,13 +31,15 @@ function signIn() {
 
     if (!$result) { return "Špatné heslo"; }
     
+    //přesměruje jakmile uživatel je přihlášen
     $_SESSION["userId"] = $user["id"];
     header('Location: '.getUrl("characters"));
     die();
 
 }
 
-echo(htmlPage("Přihlášení",
+//vygenerování celé přihlašovací stránky
+die(htmlPage("Přihlášení",
     tag("div", ["class"=>"board"], 
         href("signup", "user/signup.php", "Registrovat")
         .tag("div", ["class"=>"block"],
@@ -44,7 +49,7 @@ echo(htmlPage("Přihlášení",
                     .inputField("password", "Heslo", "password", true)
                 ))
                 .tag("input", ["type"=>"submit", "value"=>"Přihlásit"], false, false)
-                .tag("div", ["class"=>"msg"], signIn())
+                .tag("div", ["class"=>"msg"], signIn()) //volání přihlašovací funkce
             )
         )
     )

@@ -1,5 +1,7 @@
 <?php
 
+//GENERUJE ZÁKLADNÍ HTML PRO KAŽDOU STRÁNKU V APLIKACI
+
 require_once("../db/db.php");
 
 function htmlPage($title, $body) {

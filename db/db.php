@@ -1,13 +1,18 @@
 <?php
 
+//HLAVNÍ STRÁNKA S KONFIGURACÍ A PŘÍSTUPEM DO DATABÁZE
+
+//spuštění session
 session_start();
 
+//konfigurace serveru
 $DBhost = "10.10.0.10:3307";
 $DBname = "php_adventura";
 $DBuser = "php_adventura";
 $DBpass = "Guwajip=71";
 $URLroot = "";
 
+//seznam všech tabulek v databázi
 $DBtables = [
     "vstr_scenes"=>"Místa",
     "vstr_users"=>"Uživatelé",
@@ -17,22 +22,26 @@ $DBtables = [
     "vstr_characters_scenes"=>"Místa postav"
 ];
 
+//upravuje url tak aby začínala adresou v URLroot
 function getURL($path) {
     global $URLroot;
     return $URLroot."/".$path;
 }
 
+//vytváří instanci databáze
 $db = new mysqli($DBhost, $DBuser, $DBpass, $DBname);
 
 if ($db->connect_error) {
     die("Chyba při připojení k databázi: " . $db->connect_error);
 }
 
+//vrátí název tabulky z databáze (překlad)
 function dbGetTitle($tbln) {
     global $DBtables;
     return $DBtables[$tbln] ?: $tbln;
 }
 
+//vrátí záznamy z tabulky $tbln, které splňují podmínku $where
 function dbGetWhere($tbln, $where="", $singleRow=true) {
     global $db;
 
@@ -49,6 +58,7 @@ function dbGetWhere($tbln, $where="", $singleRow=true) {
     return $rows;
 }
 
+//vrátí všechny záznamy z tabulky $tbln, které splňují podmínku, ale pouze sloupec `id`
 function dbGetAllIdOnly($tbln, $where="") {
     global $db;
 
@@ -63,14 +73,17 @@ function dbGetAllIdOnly($tbln, $where="") {
     return $ids;
 }
 
+//vrátí všechny záznamy z tabulky $tbln, které splňují podmínku $where
 function dbGetAll($tbln, $where="") {
     return dbGetWhere($tbln, $where, false);
 }
 
+//vrátí pouze jeden záznam dle primary key ($id)
 function dbGetOne($tbln, $id) {
     return dbGetWhere($tbln, "`id`='$id'", true);
 }
 
+//vytvoří nový záznam v tabulce $tbln z hodnot uložených ve $vals
 function dbInsert($tbln, $vals) {
     global $db;
 
@@ -90,6 +103,7 @@ function dbInsert($tbln, $vals) {
     return $db->query($query);
 }
 
+//upravit stávající záznam dle $id v tabulce $tbln, pomocí hodnot $vals
 function dbUpdate($tbln, $id, $vals) {
     global $db;
 
@@ -106,6 +120,7 @@ function dbUpdate($tbln, $id, $vals) {
     return $db->query($query);
 }
 
+//smaže stávajćí záznam dle $id v tabulce $tbln
 function dbDelete($tbln, $id) {
     global $db;
 
@@ -115,6 +130,7 @@ function dbDelete($tbln, $id) {
     return $db->query($query);
 }
 
+//vyzvedne z databáze informace o nastavení sloupců (schématu) tabulky $tbln
 function dbGetColumns($tbln) {
     global $db;
 
@@ -135,13 +151,12 @@ function dbGetColumns($tbln) {
     return $columns;
 }
 
+//vyzvedne z databáze informace o nastavení sloupců (schématu) + zjistí nastavení tzv. foreign key (vazby)
 function dbGetColumnsWithFK($tbln) {
     global $db;
 
-    // Get column information
     $columns = dbGetColumns($tbln);
 
-    // Get FOREIGN KEY information
     $query = "SELECT COLUMN_NAME, REFERENCED_TABLE_NAME 
               FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE 
               WHERE TABLE_SCHEMA = DATABASE() 
@@ -149,13 +164,11 @@ function dbGetColumnsWithFK($tbln) {
               AND REFERENCED_TABLE_NAME IS NOT NULL";
     $result = $db->query($query);
 
-    // Build associative array mapping column names to referenced tables
     $foreignKeys = [];
     while ($row = $result->fetch_assoc()) {
         $foreignKeys[$row['COLUMN_NAME']] = $row['REFERENCED_TABLE_NAME'];
     }
 
-    // Append FOREIGN KEY information to columns
     foreach ($columns as &$column) {
         if (array_key_exists($column['Field'], $foreignKeys)) {
             $column['ForeignKey'] = $foreignKeys[$column['Field']];
@@ -167,8 +180,9 @@ function dbGetColumnsWithFK($tbln) {
     return $columns;
 }
 
+//standardně je typ přímo z SQL zapsán jako např `varchar(16)` tato funkce rozebere zápis na typ a délku tj.: [ "type"=>"varchar", "length"=>"16" ]
 function parseSqlType($typeStr) {
-    $pattern = "/([a-z]+)\((\d+)\)/i";
+    $pattern = "/([a-z]+)\((\d+)\)/i"; //regulární výraz, který validuje originální typ z SQL
     preg_match($pattern, $typeStr, $matches);
 
     if (count($matches) == 3) {
@@ -177,7 +191,6 @@ function parseSqlType($typeStr) {
             "length" => $matches[2]
         ];
     } else {
-        // In case the type string does not match the expected format
         return [
             "type" => $typeStr,
             "length" => null
@@ -185,6 +198,7 @@ function parseSqlType($typeStr) {
     }
 }
 
+//přeindexuje dvou rozměrné pole dle zadaného klíče $key
 function reindexByKey($array, $key="id") {
     $result = [];
     foreach ($array as $item) {

@@ -1,5 +1,7 @@
 <?php
 
+//SEZNAM POSTAV, VYTVOŘENÍ NOVÉ POSTAVY
+
 require_once("../tools/tags.php");
 require_once("../tools/page.php");
 require_once("../tools/components.php");
@@ -7,9 +9,11 @@ require_once("../tools/components.php");
 require_once("../db/db.php");
 require_once("../game/user.php");
 
-//logout character
+
+//odhlásit se z postavy, preventivně
 unset($_SESSION["characterId"]);
 
+//funkce pro vytvoření nové postavy
 function createChar() {
     global $db;
     global $userId;
@@ -30,9 +34,13 @@ function createChar() {
 
 }
 
+//vytvoření nové postavy (pokud to jde)
 $msg = createChar();
+
+//zísání seznamu všech postav aktuálního uživatele
 $characters = dbGetAll("vstr_characters", "`user`='$userId'");
 
+//vytvoření html seznamu postav
 $chrs = "";
 foreach ($characters as $character) {
     $chrs .= tag("div", ["class"=>"character"],
@@ -40,7 +48,8 @@ foreach ($characters as $character) {
     );
 }
 
-echo(htmlPage("Postavy",
+//vygenerování html celé stránky
+die(htmlPage("Postavy",
     tag("div", ["class"=>"board"], 
         (!$user["is_admin"] ? "" : href("adminedit", "admin", "Upravit nastavení"))
         .href("signout", "user", "Odhlásit se")

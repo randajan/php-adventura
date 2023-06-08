@@ -1,5 +1,6 @@
 <?php
 
+//REGISTRAČNÍ STRÁNKA - SAMA SE PŘESMĚRUJE JAKMILE 
 
 require_once("../tools/tags.php");
 require_once("../tools/page.php");
@@ -7,6 +8,7 @@ require_once("../tools/components.php");
 
 require_once("../db/db.php");
 
+//registrační funkce
 function signUp() {
     global $db;
 
@@ -32,6 +34,7 @@ function signUp() {
     $user = dbGetWhere("vstr_users", "`username`='$username'");
     if (!$user) { return "Chyba při registraci"; }
 
+    //přihlásí uživatele a přesměruje jakmile uživatel je zaregistrován
     $_SESSION["userId"] = $user["id"];
     header('Location: '.getUrl("characters"));
     die();
@@ -40,7 +43,8 @@ function signUp() {
 
 echo(htmlPage("Registrace",
     tag("div", ["class"=>"board"], 
-        tag("div", ["class"=>"block"],
+        href("signin", "user", "Přihlásit se")
+        .tag("div", ["class"=>"block"],
             tag("form", ["class"=>"signup", "method"=>"post", "action"=>$_SERVER["PHP_SELF"]],
                 tag("table", [], tag("tbody", [], 
                     inputField("username", "Uživatel", "", true)
@@ -48,7 +52,7 @@ echo(htmlPage("Registrace",
                     .inputField("password_confirm", "Potvrzení hesla", "password", true)
                 ))
                 .tag("input", ["type"=>"submit", "value"=>"Registrovat"], false, false)
-                .tag("div", ["class"=>"msg"], signUp())
+                .tag("div", ["class"=>"msg"], signUp()) //volání registrační funkce
             )
         )
     )
