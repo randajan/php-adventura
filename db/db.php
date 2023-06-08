@@ -19,7 +19,7 @@ $DBtables = [
     "vstr_characters"=>"Postavy",
     "vstr_stuffs"=>"Věci",
     "vstr_characters_stuffs"=>"Věci postav",
-    "vstr_characters_scenes"=>"Místa postav"
+    "vstr_characters_scenes"=>"Známá místa postav"
 ];
 
 //upravuje url tak aby začínala adresou v URLroot
